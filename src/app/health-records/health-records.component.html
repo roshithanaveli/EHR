@@ -1,0 +1,220 @@
+<div class="row " >
+  <div class= "col-sm-7 custom-row jumbotron" >
+    <form  novalidate (ngSubmit)="onFormSubmit(healthRecordForm)" #healthRecordForm="ngForm">
+      <fieldset>
+        <legend style="text-align:center"align="center">Health Record Form</legend>
+        <!-- symptoms -->
+        <div class="form-group">
+          <label align="left" for="diagnosis" class="col-lg-2">Symptoms</label>
+            <div class="col-lg-7">
+              <textarea ref-textarea [ngModel]="symptoms" rows="4" cols="50" name=symptoms id=symptoms></textarea><br/>
+            </div> 
+        </div> 
+        <!-- ------------------------------------------------------------------------------------------->
+                              <!-- <button (click)="logText(symptoms.value)">Update Log</button>
+                              <button (click)="textValue=''">Clear</button> -->
+                      
+                              <!-- <h2>Log <button (click)="log=''">Clear</button></h2>
+                                <pre>{{log}}</pre> -->
+        <!-- ------------------------------------------------------------------------------------------>
+                                  <!-- Diagnosis -->
+        <div class="form-group">
+          <label for="diagnosis" class="col-lg-2">Diagnosis</label>
+          <div class="col-lg-7">
+            <select id="diagnosis" class="form-control" [(ngModel)] = "healthrecord.diagnosis" name = "diagnosis" required>
+              <!-- <div [hidden] class="alert alert-danger"></div> -->
+              <option *ngFor = "let d of diagnosistype" [value] = "d.diagnosis_code" name="dcode"> {{d.diagnosis_description}}</option>
+            </select>
+            <!-- {{healthrecord.diagnosis.substr(0,1)}} -->
+                                     <!-- Validating -->
+
+                                     <!-- {{getindex}}-->
+            <!-- {{healthrecord.diagnosis.toString().substr(0,1)}} -->
+          </div>
+        </div>
+                                    <!-- {{diaginstant}} -->
+        <!-- <div [ngSwitch]="dietSelection">
+            <p *ngSwitchCase="'gf'">Gluten-free</p>
+            <p *ngSwitchCase="'veg'">Vegetarian / Vegan</p>
+            <p *ngSwitchCase="'paleo'">Paleo</p>
+            <p *ngSwitchDefault>Standard diet</p>
+          </span> -->
+          <div [ngSwitch]="healthrecord.diagnosis.toString().substr(0,1)">
+                   <!-- switch case for diag code starting with 0 -->
+            <div *ngSwitchCase="'0'">
+              <div class="form-group">
+                  <label align="left" for="procedurez" class="col-lg-2">procedure</label>
+                  <div class="col-lg-7">
+                    <select id="procedurez" class="form-control" [(ngModel)] = "healthrecord.procedure" name = "procedure"required>
+                      <option *ngFor = "let p of procedureinstantz" [value] = "p.procedure_code" > {{p.procedure_description}}</option>
+                    </select> 
+                  </div>
+              </div>
+            </div>
+                   <!-- switch case for diag code starting with D -->
+            <div *ngSwitchCase="'D'">
+              <div class="form-group">
+                <label align="left" for="procedured" class="col-lg-2">procedure</label>
+                <div class="col-lg-7">
+                  <select id="procedured" class="form-control" [(ngModel)] = "healthrecord.procedure" name = "procedure"required>
+                    <option *ngFor = "let p of procedureinstantd" [value] = "p.procedure_code" > {{p.procedure_description}}</option>
+                  </select> 
+                </div>
+              </div>
+            </div>
+             <!-- switch case for diag code starting with V -->
+            <div *ngSwitchCase="'V'">
+              <div class="form-group">
+                <label align="left" for="procedurev" class="col-lg-2">procedure</label>
+                  <div class="col-lg-7">
+                    <select id="procedurev" class="form-control" [(ngModel)] = "healthrecord.procedure" name = "procedure"required>
+                      <option *ngFor = "let p of procedureinstantv" [value] = "p.procedure_code" > {{p.procedure_description}}</option>
+                    </select> 
+                </div>
+              </div>
+            </div>
+             <!-- switch case for Default Case -->
+            <div *ngSwitchDefault>
+                <div class="form-group">
+                    <label align="left" for="" class="col-lg-2">procedure</label>
+                <select  class="form-control" required>
+                    <option  > Select diagnosis first</option>
+                  </select> 
+                  </div>
+                  </div>
+              
+
+        <!-- <select id="procedure" class="form-control" [(ngModel)] = "healthrecord.procedure" name = "procedure"required>
+               <option  *ngFor = "let p of proceduretype" [value] = "p.procedure_code" >
+                  {{p.procedure_description}}
+                </option>
+              </select> -->
+            
+            
+              <!-- <div class="form-group">
+                <label for="procedure" class="col-lg-2">procedure</label>
+                <div class="col-lg-7">
+                  <select id="procedure" class="form-control" [(ngModel)] = "healthrecord.procedure" name = "procedure"required>
+                    <div *ngFor = "let p of proceduretype">
+                       <div *ngIf = "p.procedure_code.toString.substr(0,1)==='0'">
+                        <option  [value] = "p.procedure_code" >
+                          {{p.procedure_description}}
+                        </option>
+                      </div> 
+                      {{p.procedure_code.toString}}
+                    </div>
+                  </select>
+                </div>
+              </div> -->
+           
+            <!-- <p *ngSwitchCase="'D'">
+              
+            </p>
+            <p *ngSwitchCase="'V'">
+              
+            </p>
+            <p *ngSwitchDefault>
+              
+            </p> -->
+
+          </div>
+        <!-- ------------------------------------------------------------------------------------------->
+                                                  <!-- procedure -->
+        <!-- ------------------------------------------------------------------------------------------->
+        
+        <!-- <div class="form-group">
+          <label for="procedure" class="col-lg-2">procedure</label>
+          <div class="col-lg-7">
+            <select id="procedure" class="form-control" [(ngModel)] = "healthrecord.procedure" name = "procedure"required>
+              <option *ngFor = "let p of proceduretype" [value] = "p.procedure_code" > {{p.procedure_description}}</option>
+            </select>
+         
+          </div>
+        </div> -->
+        
+        <!-- ------------------------------------------------------------------------------------------->
+                                                  <!-- down part -->
+        <!-- ------------------------------------------------------------------------------------------->
+        <div class="form-group checkbox">
+          <div class="col-lg-6 ">
+          <!-- ------------------------------------------------------------------------------------------->
+                                                  <!-- terms and conditions -->
+          <!-- ------------------------------------------------------------------------------------------->
+            <input type="checkbox"ngModel name = "terms" #terms = "ngModel"required> Confirm that you've read the Terms and Condition
+          </div>
+         <!-- Terms checkbox error block -->
+          <div *ngIf="(terms.invalid && terms.touched)" class="col-lg-4 text-danger">You need to check this box to continue</div>
+        </div>
+        <!-- ------------------------------------------------------------------------------------------->
+                                                  <!-- Reset and Submit -->
+        <!-- ------------------------------------------------------------------------------------------->
+        <!-- Buttons block -->
+        <!-- <div class="form-group ">
+          <div class="col-lg-10 col-lg-offset-2">
+            <button type="reset" class="btn btn-success">Cancel</button>&nbsp;
+            <button type="submit" class="btn btn-success"[disabled]="!healthRecordForm.form.valid"> Add </button>
+          </div>
+          
+        </div>  -->
+
+        <div class="form-group ">
+            <div class="col-lg-10 col-lg-offset-2">
+                     <button type="submit" class="btn btn-success"
+                      [(disabled)]="!healthRecordForm.form.valid"> Add Another Problem
+              </button>
+            </div>
+          </div>
+      </fieldset>
+    </form>
+   
+  </div>
+  
+</div>
+<!-- <button type="submit" (click)="onClickMe()" class="btn btn-success">Submit
+  </button> -->
+  <pre>
+    {{error}}
+    
+    </pre>
+    <div align="center">
+        {{error}}
+    </div> 
+    <table class="table">
+        <tbody>
+          <tr *ngFor="let x of healthrec">
+                <td>{{x.symptoms}}</td>          
+                <td>{{x.diagnosis}}</td>
+                <td>{{x.procedure}}</td>
+          </tr>
+          </tbody>
+    </table>
+    <!-- <pre>
+        {{healthrec|json}}
+    </pre> -->
+<!-- <div class="form-group">
+    <div class="col-lg-10 col-lg-offset-2">
+      <button type="reset" class="btn btn-default">Cancel</button>
+      <button type="submit" class="btn btn-success"
+              [disabled]="!signForm.form.valid">Add
+      </button>
+      
+    </div>
+  </div>
+</fieldset>
+</form>
+</div>
+</div>
+<div>
+<button type="submit" (click)="onClickMe()" class="btn btn-success">Submit
+</button>
+</div> -->
+
+    <!-- <ng-select  [multiple]="true"
+    [items]="items"
+    [disabled]="disabled"
+    (data)="refreshValue($event)"
+    (selected)="selected($event)"
+    (removed)="removed($event)"
+    placeholder="No city selected"></ng-select>
+<pre>{{itemsToString(value)}}</pre>
+<div> -->
